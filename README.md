@@ -13,7 +13,7 @@ The program will save all the identified tokens into an array then print them. I
 
 ### References
 
-https://www.cs.princeton.edu/~appel/modern/c/software/flex/flex.html
-http://dinosaur.compilertools.net/flex/manpage.html
-https://medium.com/@ilyarudyak/flex-tutorial-9ed34fd1ff28
-https://www.geeksforgeeks.org/flex-fast-lexical-analyzer-generator/
+1. https://www.cs.princeton.edu/~appel/modern/c/software/flex/flex.html
+2. http://dinosaur.compilertools.net/flex/manpage.html
+3. https://medium.com/@ilyarudyak/flex-tutorial-9ed34fd1ff28
+4. https://www.geeksforgeeks.org/flex-fast-lexical-analyzer-generator/
