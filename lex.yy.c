@@ -595,7 +595,7 @@ Token *push(int token_type, Token *token_list, int list_size, char *lexeme, int 
 
 	new_token.type = token_type;
 	new_token.lexeme = lexeme;
-	new_token.line = line;
+	new_token.line = line-1;
 
 	token_list[list_size] = new_token;
 
@@ -850,7 +850,7 @@ YY_RULE_SETUP
 #line 114 "definition.l"
 {
 	push(PROGRAMSYM, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"PROGRAMSYM(%s)", yytext); 	
+	fprintf(output,"PROGRAMSYM(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -859,7 +859,7 @@ YY_RULE_SETUP
 #line 120 "definition.l"
 {
 	push(BEGINSYM, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"BEGINSYM(%s)", yytext); 	
+	fprintf(output,"BEGINSYM(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -868,7 +868,7 @@ YY_RULE_SETUP
 #line 126 "definition.l"
 {
 	push(ENDSYM, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"ENDSYM(%s)", yytext); 		
+	fprintf(output,"ENDSYM(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -877,7 +877,7 @@ YY_RULE_SETUP
 #line 132 "definition.l"
 {
 	push(WHILE, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"WHILE(%s)", yytext); 		
+	fprintf(output,"WHILE(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -886,7 +886,7 @@ YY_RULE_SETUP
 #line 138 "definition.l"
 {
 	push(ELSE, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"ELSE(%s)", yytext); 		
+	fprintf(output,"ELSE(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -895,7 +895,7 @@ YY_RULE_SETUP
 #line 144 "definition.l"
 {
 	push(FOR, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"FOR(%s)", yytext); 			
+	fprintf(output,"FOR(%s)", yytext); 			
 	list_size++;
 }
 	YY_BREAK
@@ -904,7 +904,7 @@ YY_RULE_SETUP
 #line 150 "definition.l"
 {
 	push(IF, token_list, list_size, yytext, cursor_line); 			
-	//fprintf(output,"IF(%s)", yytext); 			
+	fprintf(output,"IF(%s)", yytext); 			
 	list_size++;
 }
 	YY_BREAK
@@ -913,7 +913,7 @@ YY_RULE_SETUP
 #line 156 "definition.l"
 {
 	push(THEN, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"THEN(%s)", yytext); 		
+	fprintf(output,"THEN(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -922,7 +922,7 @@ YY_RULE_SETUP
 #line 162 "definition.l"
 {
 	push(MATH_OP, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," MATH_OP(%s)", yytext); 	
+	fprintf(output," MATH_OP(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -931,7 +931,7 @@ YY_RULE_SETUP
 #line 168 "definition.l"
 {
 	push(LOGICAL_OP, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," LOGICAL_OP(%s)", yytext); 	
+	fprintf(output," LOGICAL_OP(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -940,7 +940,7 @@ YY_RULE_SETUP
 #line 174 "definition.l"
 {
 	push(ASSIGNMENT, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," ASSIGNMENT(%s)", yytext); 	
+	fprintf(output," ASSIGNMENT(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -949,7 +949,7 @@ YY_RULE_SETUP
 #line 180 "definition.l"
 {
 	push(DOT, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output," DOT(%s)", yytext);			
+	fprintf(output," DOT(%s)", yytext);			
 	list_size++;
 }
 	YY_BREAK
@@ -958,7 +958,7 @@ YY_RULE_SETUP
 #line 186 "definition.l"
 {
 	push(COMMA, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output," COMMA(%s)", yytext);		
+	fprintf(output," COMMA(%s)", yytext);		
 	list_size++;
 }
 	YY_BREAK
@@ -967,7 +967,7 @@ YY_RULE_SETUP
 #line 192 "definition.l"
 {
 	push(COLON, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output," COLON(%s)", yytext);		
+	fprintf(output," COLON(%s)", yytext);		
 	list_size++;
 }
 	YY_BREAK
@@ -976,7 +976,7 @@ YY_RULE_SETUP
 #line 198 "definition.l"
 {
 	push(SEMICOLON, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," SEMICOLON(%s)", yytext);	
+	fprintf(output," SEMICOLON(%s)", yytext);	
 	list_size++;
 }
 	YY_BREAK
@@ -985,7 +985,7 @@ YY_RULE_SETUP
 #line 204 "definition.l"
 {
 	push(L_PAREN, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," L_PAREN(%s)", yytext);		
+	fprintf(output," L_PAREN(%s)", yytext);		
 	list_size++;
 }
 	YY_BREAK
@@ -994,7 +994,7 @@ YY_RULE_SETUP
 #line 210 "definition.l"
 {
 	push(R_PAREN, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," R_PAREN(%s)", yytext);		
+	fprintf(output," R_PAREN(%s)", yytext);		
 	list_size++;
 }
 	YY_BREAK
@@ -1003,7 +1003,7 @@ YY_RULE_SETUP
 #line 216 "definition.l"
 {
 	push(L_BRACKET, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," L_BRACKET(%s)", yytext);	
+	fprintf(output," L_BRACKET(%s)", yytext);	
 	list_size++;
 }
 	YY_BREAK
@@ -1012,7 +1012,7 @@ YY_RULE_SETUP
 #line 222 "definition.l"
 {
 	push(R_BRACKET, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output," R_BRACKET(%s)", yytext);	
+	fprintf(output," R_BRACKET(%s)", yytext);	
 	list_size++;
 }
 	YY_BREAK
@@ -1021,7 +1021,7 @@ YY_RULE_SETUP
 #line 228 "definition.l"
 {
 	push(KEYWORD, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"KEYWORD(%s)", yytext); 		
+	fprintf(output,"KEYWORD(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -1030,7 +1030,7 @@ YY_RULE_SETUP
 #line 234 "definition.l"
 {
 	push(REAL, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"REAL(%s)", yytext); 		
+	fprintf(output,"REAL(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -1039,7 +1039,7 @@ YY_RULE_SETUP
 #line 240 "definition.l"
 {
 	push(INTEGER, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"INTEGER(%s)", yytext); 		
+	fprintf(output,"INTEGER(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -1048,7 +1048,7 @@ YY_RULE_SETUP
 #line 246 "definition.l"
 {
 	push(IDENTIFIER, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"IDENTIFIER(%s)", yytext); 	
+	fprintf(output,"IDENTIFIER(%s)", yytext); 	
 	list_size++;
 }
 	YY_BREAK
@@ -1057,7 +1057,7 @@ YY_RULE_SETUP
 #line 252 "definition.l"
 {
 	push(CONST_STR, token_list, list_size, yytext, cursor_line); 	
-	//fprintf(output,"STRING(%s)", yytext);		
+	fprintf(output,"STRING(%s)", yytext);		
 	list_size++;
 }
 	YY_BREAK
@@ -1065,21 +1065,21 @@ case 25:
 YY_RULE_SETUP
 #line 258 "definition.l"
 {
-	//fprintf(output,"COMMENT(%s)", yytext);
+	fprintf(output,"COMMENT(%s)", yytext);
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 262 "definition.l"
 {
-	//fprintf(output," ");
+	fprintf(output," ");
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 266 "definition.l"
 {
-	//fprintf(output,"\n%d ", cursor_line);
+	fprintf(output,"\n%d ", cursor_line);
 	cursor_line++;
 }
 	YY_BREAK
@@ -1088,7 +1088,7 @@ YY_RULE_SETUP
 #line 271 "definition.l"
 {
 	push(ERROR, token_list, list_size, yytext, cursor_line); 		
-	//fprintf(output,"ERROR(%s)", yytext); 		
+	fprintf(output,"ERROR(%s)", yytext); 		
 	list_size++;
 }
 	YY_BREAK
@@ -1995,12 +1995,18 @@ int main(int argc, char *argv[])
 	token_list = (token*)malloc(sizeof(Token));
 
 	input = fopen(argv[1],"r"); 
-	//output = fopen("output.txt", "w");
+	output = fopen("output.txt", "w");
+
+	if(input == NULL)
+	{
+		printf("input file does not exist.\n");
+		return 1;
+	}
 
 	yyin = input;
 	//yyout = output;
 
-	//fprintf(output,"%d ", cursor_line); 
+	fprintf(output,"%d ", cursor_line); 
 
 	cursor_line++;
 	  
