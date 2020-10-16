@@ -16,9 +16,8 @@
 #define ELSE 107
 #define WHILE 108
 #define FOR 109
-#define LOOP 110
 
-//IDENTIFIER - 2XX
+//IDENTIFIER - 200
 #define IDENTIFIER 200
 
 //OPERATORS - 3XX
@@ -70,6 +69,16 @@ void print_token(Token token, int i)
 	printf("line: %d \n", token.line);
 }
 
+void print_list(Token *token_list, int list_size)
+{
+	int i;
+
+	for(i = 0; i <= list_size-1; i++)
+	{
+		print_token(token_list[i], i);
+	}
+}
+
 Token *push(int token_type, Token *token_list, int list_size, char *lexeme, int line)
 {
 	Token new_token;
@@ -84,7 +93,7 @@ Token *push(int token_type, Token *token_list, int list_size, char *lexeme, int 
 
 	token_list = (token*)realloc(token_list,(list_size)*sizeof(Token));
 
-	//print_token(new_token, list_size);
+	print_token(new_token, list_size);
 
 	return token_list;
 }
@@ -101,52 +110,173 @@ COMMENT[^*/]*
 STRING[^"\""]*
 
 %%
-program|PROGRAM			{push(PROGRAMSYM, token_list, list_size, yytext, cursor_line); fprintf(output,"PROGRAMSYM(%s)", yytext); list_size++;}
-begin|BEGIN 			{push(BEGINSYM, token_list, list_size, yytext, cursor_line); fprintf(output,"BEGINSYM(%s)", yytext); list_size++;}
-end|END 				{push(ENDSYM, token_list, list_size, yytext, cursor_line); fprintf(output,"ENDSYM(%s)", yytext); list_size++;}
-while|WHILE 			{push(WHILE, token_list, list_size, yytext, cursor_line); fprintf(output,"WHILE(%s)", yytext); list_size++;}
-else|ELSE 				{push(ELSE, token_list, list_size, yytext, cursor_line); fprintf(output,"ELSE(%s)", yytext); list_size++;}
-for|FOR 				{push(FOR, token_list, list_size, yytext, cursor_line); fprintf(output,"FOR(%s)", yytext); list_size++;}	
-if|IF 					{push(IF, token_list, list_size, yytext, cursor_line); fprintf(output,"IF(%s)", yytext); list_size++;}
-then|THEN 				{push(THEN, token_list, list_size, yytext, cursor_line); fprintf(output,"THEN(%s)", yytext); list_size++;}
 
-"+"|"-"|"*"|"/"			{push(MATH_OP, token_list, list_size, yytext, cursor_line); fprintf(output," MATH_OP(%s)", yytext); list_size++;}
-"<"|">"|"="|"!"			{push(LOGICAL_OP, token_list, list_size, yytext, cursor_line); fprintf(output," LOGICAL_OP(%s)", yytext); list_size++;}
+program|PROGRAM	{
+	push(PROGRAMSYM, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"PROGRAMSYM(%s)", yytext); 	
+	list_size++;
+}
 
-":="					{push(ASSIGNMENT, token_list, list_size, yytext, cursor_line); fprintf(output," ASSIGNMENT(%s)", yytext); list_size++;}
-"."						{push(DOT, token_list, list_size, yytext, cursor_line); fprintf(output," DOT(%s)", yytext);	list_size++;}
-","						{push(COMMA, token_list, list_size, yytext, cursor_line); fprintf(output," COMMA(%s)", yytext);	list_size++;}
-":"						{push(COLON, token_list, list_size, yytext, cursor_line); fprintf(output," COLON(%s)", yytext);	list_size++;}
-";"						{push(SEMICOLON, token_list, list_size, yytext, cursor_line); fprintf(output," SEMICOLON(%s)", yytext);	list_size++;}
-"("						{push(L_PAREN, token_list, list_size, yytext, cursor_line); fprintf(output," L_PAREN(%s)", yytext);	list_size++;}
-")"						{push(R_PAREN, token_list, list_size, yytext, cursor_line); fprintf(output," R_PAREN(%s)", yytext);	list_size++;}
-"["						{push(L_BRACKET, token_list, list_size, yytext, cursor_line); fprintf(output," L_BRACKET(%s)", yytext);	list_size++;}
-"]"						{push(R_BRACKET, token_list, list_size, yytext, cursor_line); fprintf(output," R_BRACKET(%s)", yytext);	list_size++;}
+begin|BEGIN {
+	push(BEGINSYM, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"BEGINSYM(%s)", yytext); 	
+	list_size++;
+}
 
-{KEYWORD}				{push(KEYWORD, token_list, list_size, yytext, cursor_line); fprintf(output,"KEYWORD(%s)", yytext); list_size++;}
-{DIGIT}+				{push(INTEGER, token_list, list_size, yytext, cursor_line); fprintf(output,"INTEGER(%s)", yytext); list_size++;}
-{DIGIT}+"."{DIGIT}*		{push(REAL, token_list, list_size, yytext, cursor_line); fprintf(output,"REAL(%s)", yytext); list_size++;}
-{ID}+					{push(IDENTIFIER, token_list, list_size, yytext, cursor_line); fprintf(output,"IDENTIFIER(%s)", yytext); list_size++;}
+end|END {
+	push(ENDSYM, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"ENDSYM(%s)", yytext); 		
+	list_size++;
+}
 
-"\""{STRING}"\""		{push(CONST_STR, token_list, list_size, yytext, cursor_line); fprintf(output,"STRING(%s)", yytext);	list_size++;}
-"/*"{COMMENT}"*/"		{fprintf(output,"COMMENT(%s)", yytext);}
-{WHITESPACE} 			{fprintf(output," ");}
-\n 						{fprintf(output,"\n%d ", cursor_line); cursor_line++;}
+while|WHILE {
+	push(WHILE, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"WHILE(%s)", yytext); 		
+	list_size++;
+}
 
-.						{push(ERROR, token_list, list_size, yytext, cursor_line); fprintf(output,"ERROR(%s)", yytext); list_size++;}
+else|ELSE {
+	push(ELSE, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"ELSE(%s)", yytext); 		
+	list_size++;
+}
+
+for|FOR {
+	push(FOR, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"FOR(%s)", yytext); 			
+	list_size++;
+}
+
+if|IF {
+	push(IF, token_list, list_size, yytext, cursor_line); 			
+	//fprintf(output,"IF(%s)", yytext); 			
+	list_size++;
+}
+
+then|THEN {
+	push(THEN, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"THEN(%s)", yytext); 		
+	list_size++;
+}
+
+"+"|"-"|"*"|"/"	{
+	push(MATH_OP, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," MATH_OP(%s)", yytext); 	
+	list_size++;
+}
+
+"<"|">"|"="|"!"	{
+	push(LOGICAL_OP, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," LOGICAL_OP(%s)", yytext); 	
+	list_size++;
+}
+
+":=" {
+	push(ASSIGNMENT, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," ASSIGNMENT(%s)", yytext); 	
+	list_size++;
+}
+
+"."	{
+	push(DOT, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output," DOT(%s)", yytext);			
+	list_size++;
+}
+
+","	{
+	push(COMMA, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output," COMMA(%s)", yytext);		
+	list_size++;
+}
+
+":"	{
+	push(COLON, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output," COLON(%s)", yytext);		
+	list_size++;
+}
+
+";"	{
+	push(SEMICOLON, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," SEMICOLON(%s)", yytext);	
+	list_size++;
+}
+
+"("	{
+	push(L_PAREN, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," L_PAREN(%s)", yytext);		
+	list_size++;
+}
+
+")"	{
+	push(R_PAREN, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," R_PAREN(%s)", yytext);		
+	list_size++;
+}
+
+"["	{
+	push(L_BRACKET, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," L_BRACKET(%s)", yytext);	
+	list_size++;
+}
+
+"]"	{
+	push(R_BRACKET, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output," R_BRACKET(%s)", yytext);	
+	list_size++;
+}
+
+{KEYWORD} {
+	push(KEYWORD, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"KEYWORD(%s)", yytext); 		
+	list_size++;
+}
+
+{DIGIT}+"."{DIGIT}*	{
+	push(REAL, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"REAL(%s)", yytext); 		
+	list_size++;
+}
+
+{DIGIT}+ {
+	push(INTEGER, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"INTEGER(%s)", yytext); 		
+	list_size++;
+}
+
+{ID}+ {
+	push(IDENTIFIER, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"IDENTIFIER(%s)", yytext); 	
+	list_size++;
+}
+
+"\""{STRING}"\"" {
+	push(CONST_STR, token_list, list_size, yytext, cursor_line); 	
+	//fprintf(output,"STRING(%s)", yytext);		
+	list_size++;
+}
+
+"/*"{COMMENT}"*/" {
+	//fprintf(output,"COMMENT(%s)", yytext);
+}
+
+{WHITESPACE} {
+	//fprintf(output," ");
+}
+
+\n {
+	//fprintf(output,"\n%d ", cursor_line);
+	cursor_line++;
+}
+
+. {
+	push(ERROR, token_list, list_size, yytext, cursor_line); 		
+	//fprintf(output,"ERROR(%s)", yytext); 		
+	list_size++;
+}
+
 %%
 
-int yywrap(){/*wraps the code above*/}
-
-void print_list(Token *token_list, int list_size)
-{
-	int i;
-
-	for(i = 0; i <= list_size-1; i++)
-	{
-		print_token(token_list[i], i);
-	}
-}
+int yywrap(){return(1);}
 
 int main(int argc, char *argv[])
 { 
@@ -155,16 +285,18 @@ int main(int argc, char *argv[])
 	token_list = (token*)malloc(sizeof(Token));
 
 	input = fopen(argv[1],"r"); 
-	output = fopen("output.txt", "w");
+	//output = fopen("output.txt", "w");
 
 	yyin = input;
-	yyout = output;
+	//yyout = output;
 
-	fprintf(output,"%d ", cursor_line); cursor_line++;
+	//fprintf(output,"%d ", cursor_line); 
+
+	cursor_line++;
 	  
 	yylex();
 
-	print_list(token_list, list_size); 
+	//print_list(token_list, list_size); 
 
 	fclose(input);
 	fclose(output);

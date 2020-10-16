@@ -17,3 +17,4 @@ The program will save all the identified tokens into an array then print them. I
 2. http://dinosaur.compilertools.net/flex/manpage.html
 3. https://medium.com/@ilyarudyak/flex-tutorial-9ed34fd1ff28
 4. https://www.geeksforgeeks.org/flex-fast-lexical-analyzer-generator/
+5. https://perso.esiee.fr/~najmanl/compil/Flex/flex_2.html
