@@ -96,9 +96,6 @@ KEYWORD "type"|"TYPE"|"const"|"CONST"|"var"|"VAR"|"integer"|"INTEGER"|"real"|"RE
 DIGIT[0-9]
 ALPHANUM[a-zA-F0-9]*
 ID[a-zA-Z][a-zA-Z0-9]*
-LETTER[a-zA-Z]
-UPPERCASE[A-Z]
-LOWERCASE[a-z]
 WHITESPACE[  \t\r]
 COMMENT[^*/]*
 STRING[^"\""]*
